@@ -1,0 +1,7 @@
+kind: Kustomization
+apiVersion: kustomize.config.k8s.io/v1beta1
+resources:
+  - https://github.com/sim1/katalog/ingress-nginx/owasp-modsecurity?ref=0.0.1
+  - https://github.com/sim1/katalog/cert-manager/default?ref=0.0.1
+  - https://github.com/sim1/katalog/external-dns/default?ref=0.0.1
+  - ../../bases/juice-shop/default

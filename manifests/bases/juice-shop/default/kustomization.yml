@@ -1,0 +1,16 @@
+kind: Kustomization
+apiVersion: kustomize.config.k8s.io/v1beta1
+
+namespace: juice-shop
+
+resources:
+  - ../base
+  - networkpolicy.yml
+  - ingress.yml
+  - horizontalpodautoscaler.yml
+  # - resourcequota.yml  # uncompatible with k3d https://github.com/rancher/k3d/issues/491  
+
+patchesStrategicMerge:
+  - patch-antiaffinity.yml
+  - patch-replicas.yml
+  # - patch-resource-requests-limits.yml  # uncompatible with k3d https://github.com/rancher/k3d/issues/491

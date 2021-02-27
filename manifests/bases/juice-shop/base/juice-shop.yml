@@ -1,0 +1,68 @@
+---
+# Source: juice-shop/templates/service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: my-juice-shop
+  labels:
+    helm.sh/chart: juice-shop-v2.4.0
+    app.kubernetes.io/name: juice-shop
+    app.kubernetes.io/instance: my-juice-shop
+    app.kubernetes.io/version: "v12.4.0"
+    app.kubernetes.io/managed-by: Helm
+spec:
+  type: ClusterIP
+  ports:
+    - port: 3000
+      targetPort: http
+      protocol: TCP
+      name: http
+  selector:
+    app.kubernetes.io/name: juice-shop
+    app.kubernetes.io/instance: my-juice-shop
+---
+# Source: juice-shop/templates/deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-juice-shop
+  labels:
+    helm.sh/chart: juice-shop-v2.4.0
+    app.kubernetes.io/name: juice-shop
+    app.kubernetes.io/instance: my-juice-shop
+    app.kubernetes.io/version: "v12.4.0"
+    app.kubernetes.io/managed-by: Helm
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: juice-shop
+      app.kubernetes.io/instance: my-juice-shop
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: juice-shop
+        app.kubernetes.io/instance: my-juice-shop
+    spec:
+      securityContext:
+        {}
+      containers:
+        - name: juice-shop
+          securityContext:
+            {}
+          image: "docker.io/bkimminich/juice-shop:v12.4.0"
+          imagePullPolicy: IfNotPresent
+          ports:
+            - name: http
+              containerPort: 3000
+              protocol: TCP
+          livenessProbe:
+            httpGet:
+              path: /
+              port: http
+          readinessProbe:
+            httpGet:
+              path: /
+              port: http
+          resources:
+            {}
