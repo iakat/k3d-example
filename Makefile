@@ -17,7 +17,7 @@ logs:
 rm:
 	docker-compose stop || true
 	docker-compose rm -f -v || true
-	docker volume rm k3d-juice-shop_k3s-server || true
+	docker volume rm k3d-example_k3s-server || true
 install-kustomize:
 	curl -L https://raw.githubusercontent.com/kubernetes-sigs/kustomize/master/hack/install_kustomize.sh | bash
 	sudo mv -n kustomize /usr/local/bin

@@ -1,7 +1,8 @@
 kind: Kustomization
 apiVersion: kustomize.config.k8s.io/v1beta1
 
+namespace: microservices-demo
+
 resources:
-  - juice-shop.yml
-  - namespace.yml
-namespace: juice-shop
+  - ../base
+  - ingress.yml

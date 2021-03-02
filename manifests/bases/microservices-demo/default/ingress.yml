@@ -2,7 +2,7 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: juice-shop
+  name: microservices-demo
   annotations:
     #cert-manager.io/cluster: "letsencrypt-prod"  
     # FIXME uncomment me to get a valid certificate
@@ -10,7 +10,7 @@ spec:
   tls:
   - hosts:
     - localhost  # FIXME change me to get a valid certificate
-    secretName: juice-shop-tls
+    secretName: microservices-demo-tls
   rules:
   - host: localhost  # FIXME change me to get a valid certificate
     http:
@@ -19,6 +19,6 @@ spec:
         pathType: Prefix
         backend:
           service:
-            name: my-juice-shop
+            name: frontend
             port:
-              number: 3000
+              number: 8000
